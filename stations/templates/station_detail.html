@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ station.name }}</title>
-</head>
-<body>
+{% extend base.html %}
+{% block title  %}فرم بازرسی{% endblock %}
+{% block body %}
     <h1>{{ station.name }}</h1>
     <p>Gasoline Tanks: {{ station.gasoline_tanks }}</p>
     <p>Gasoline Nozzles: {{ station.gasoline_nozzles }}</p>
@@ -22,20 +19,19 @@
     <p>Gas Tank 2 Stock: {{ station.gas_tank2_stock }}</p>
     <p>Diesel Electronic Sales: {{ station.diesel_electronic_sales }}</p>
 
-    <h2>Gasoline Nozzles</h2>
+    <h2>نازل های بنزین</h2>
     <ul>
         {% for nozzle in gasoline_nozzles %}
-        <li>Nozzle {{ nozzle.nozzle_number }}: {{ nozzle.totalizer_start }} - {{ nozzle.totalizer_end }}</li>
+        <li>نازل {{ nozzle.nozzle_number }}: {{ nozzle.totalizer_start }} - {{ nozzle.totalizer_end }}</li>
         {% endfor %}
     </ul>
 
-    <h2>Gas Nozzles</h2>
+    <h2>نازل های گاز</h2>
     <ul>
         {% for nozzle in gas_nozzles %}
-        <li>Nozzle {{ nozzle.nozzle_number }}: {{ nozzle.totalizer_start }} - {{ nozzle.totalizer_end }}</li>
+        <li>نازل {{ nozzle.nozzle_number }}: {{ nozzle.totalizer_start }} - {{ nozzle.totalizer_end }}</li>
         {% endfor %}
     </ul>
 
-    <a href="{% url 'station_list' %}">Back to List</a>
-</body>
-</html>
+    <a href="{% url 'station_list' %}">بازگشت به لیست</a>
+{% endblock %}
