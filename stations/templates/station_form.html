@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Station</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_gasoline_nozzles').change(function() {
+                var count = $(this).val();
+                updateNozzleFormset('gasoline', count);
+            });
+
+            $('#id_gas_nozzles').change(function() {
+                var count = $(this).val();
+                updateNozzleFormset('gas', count);
+            });
+
+            function updateNozzleFormset(type, count) {
+                var formset = $('#' + type + '_nozzle_formset');
+                formset.empty();
+                for (var i = 0; i < count; i++) {
+                    var form = $('<div>').append(
+                        $('<label>').text('Nozzle ' + (i + 1) + ' Totalizer Start'),
+                        $('<input>').attr({
+                            'type': 'number',
+                            'name': type + '_nozzle-' + i + '-totalizer_start',
+                            'id': 'id_' + type + '_nozzle-' + i + '-totalizer_start'
+                        }),
+                        $('<label>').text('Nozzle ' + (i + 1) + ' Totalizer End'),
+                        $('<input>').attr({
+                            'type': 'number',
+                            'name': type + '_nozzle-' + i + '-totalizer_end',
+                            'id': 'id_' + type + '_nozzle-' + i + '-totalizer_end'
+                        }),
+                        $('<input>').attr({
+                            'type': 'hidden',
+                            'name': type + '_nozzle-' + i + '-nozzle_number',
+                            'value': (i + 1)
+                        }),
+                        $('<input>').attr({
+                            'type': 'hidden',
+                            'name': type + '_nozzle-' + i + '-station',
+                            'value': ''
+                        })
+                    );
+                    formset.append(form);
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Create New Fuel Station</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <h2>Gasoline Nozzles</h2>
+        <div id="gasoline_nozzle_formset">
+            <!-- Forms for Gasoline Nozzles will be added here dynamically -->
+        </div>
+        
+        <h2>Gas Nozzles</h2>
+        <div id="gas_nozzle_formset">
+            <!-- Forms for Gas Nozzles will be added here dynamically -->
+        </div>
+        
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'station_list' %}">Back to List</a>
+</body>
+</html>
