@@ -1,39 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Station PDF</title>
-</head>
-<body>
-    <h1>{{ station.name }}</h1>
-    <p>Gasoline Tanks: {{ station.gasoline_tanks }}</p>
-    <p>Gasoline Nozzles: {{ station.gasoline_nozzles }}</p>
-    <p>Gas Tanks: {{ station.gas_tanks }}</p>
-    <p>Gas Nozzles: {{ station.gas_nozzles }}</p>
-    <p>Control Period: {{ station.get_control_period_display }}</p>
-    <p>Product Type: {{ station.get_product_type_display }}</p>
-    <p>Gasoline Initial Stock: {{ station.gasoline_initial_stock }}</p>
-    <p>Gasoline Received: {{ station.gasoline_received }}</p>
-    <p>Gasoline Tank 1 Stock: {{ station.gasoline_tank1_stock }}</p>
-    <p>Gasoline Tank 2 Stock: {{ station.gasoline_tank2_stock }}</p>
-    <p>Gasoline Electronic Sales: {{ station.gasoline_electronic_sales }}</p>
-    <p>Gas Initial Stock: {{ station.gas_initial_stock }}</p>
-    <p>Gas Received: {{ station.gas_received }}</p>
-    <p>Gas Tank 1 Stock: {{ station.gas_tank1_stock }}</p>
-    <p>Gas Tank 2 Stock: {{ station.gas_tank2_stock }}</p>
-    <p>Diesel Electronic Sales: {{ station.diesel_electronic_sales }}</p>
+{% extends "base.html" %}
+{% block body %}
 
-    <h2>Gasoline Nozzles</h2>
-    <ul>
-        {% for nozzle in station.gasoline_nozzles_details.all %}
-        <li>Nozzle {{ nozzle.nozzle_number }}: {{ nozzle.totalizer_start }} - {{ nozzle.totalizer_end }}</li>
-        {% endfor %}
-    </ul>
 
-    <h2>Gas Nozzles</h2>
-    <ul>
-        {% for nozzle in station.gas_nozzles_details.all %}
-        <li>Nozzle {{ nozzle.nozzle_number }}: {{ nozzle.totalizer_start }} - {{ nozzle.totalizer_end }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+
+    <h1>گزارش ایستگاه</h1>
+    <h2>نام ایستگاه: {{ station.name }}</h2>
+    
+    <h3>مجموع بنزین</h3>
+    <p>{{ gasoline_total }}</p>
+    
+    <h3>مجموع گاز</h3>
+    <p>{{ gas_total }}</p>
+
+    <h3>حذف کامل محصول از ایستگاه (بنزین)</h3>
+    <p>{{ gasoline_entire_product_removed }}</p>
+    
+    <h2>نازل‌های بنزین</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>شماره نازل</th>
+                <th>شروع توتالایزر</th>
+                <th>پایان توتالایزر</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nozzle in station.gasoline_nozzles_details.all %}
+            <tr>
+                <td>{{ nozzle.nozzle_number }}</td>
+                <td>{{ nozzle.totalizer_start }}</td>
+                <td>{{ nozzle.totalizer_end }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2>نازل‌های گاز</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>شماره نازل</th>
+                <th>شروع توتالایزر</th>
+                <th>پایان توتالایزر</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nozzle in station.gas_nozzles_details.all %}
+            <tr>
+                <td>{{ nozzle.nozzle_number }}</td>
+                <td>{{ nozzle.totalizer_start }}</td>
+                <td>{{ nozzle.totalizer_end }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>مخازن بنزین</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>شماره مخزن</th>
+                <th>موجودی نهایی</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tank in station.gasoline_tanks.all %}
+            <tr>
+                <td>{{ tank.tank_number }}</td>
+                <td>{{ tank.final_stock }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>مخازن گاز</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>شماره مخزن</th>
+                <th>موجودی نهایی</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tank in station.gas_tanks.all %}
+            <tr>
+                <td>{{ tank.tank_number }}</td>
+                <td>{{ tank.final_stock }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

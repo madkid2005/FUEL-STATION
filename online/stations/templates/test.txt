@@ -61,3 +61,16 @@ def generate_pdf(request, pk):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+
+
+
+
+
+
+
+    Well, I want the control period to be in the form of a time interval, for example, such and such date to such and such date:
+
+my model :
+    control_period = models.CharField('انتخاب دوره',max_length=50, choices=[('start', 'ابتدا دوره'), ('end', 'انتهای دوره')])  # انتخاب دوره
+

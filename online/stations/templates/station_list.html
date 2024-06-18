@@ -2,30 +2,44 @@
 {% extends "base.html" %}
 {% block body %}
 
-<div class=" mt-5" style="z-index: auto;">
+<style>
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .btn-custom {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+</style>
 
-    
-    <div class=" d-flex justify-content-between mx-1">
-        
-        <div>
-            <a href="{% url 'create_station' %}">
-            <button class="btn btn btn-success ">
-               ایجاد فایل جدید
-            </button>
-             </a>
-       </div>
-       
-        <div class="btn "> فایل های پی دی اف</div>
-    </div>
-    
-    <div class="text-center mt-1 w-100">
+<div class="container mt-4">
+    <h2 class="text-center mb-4">فایل‌های پی‌دی‌اف</h2>
+
+    <div class="row">
         {% for station in stations %}
-        <div class=" my-1 bg-white py-3 border-bottom border-top w-100 text-center">
-            <a href="{% url 'station_detail' station.id %}">{{ station.name }}</a> - 
-            <a href="{% url 'generate_pdf' station.id %}">Generate PDF</a>
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    
+
+                  <p>
+
+                      <a class="card-title " href="{% url 'station_detail' station.id %}">{{ station.name }}</a> 
+                  </p> 
+                    <a class="btn btn-primary btn-custom" href="{% url 'generate_pdf' station.id %}">Generate PDF</a>
+                    <a class="btn btn-secondary btn-custom" href="{% url 'generate_pdf_reportlab' station.pk %}">generate_pdf_reportlab PDF</a>
+        
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
 </div>
-    
-    {% endblock %}
+
+{% endblock %}

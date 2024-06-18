@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% block title  %}فرم بازرسی{% endblock %}
 {% block body %}
-    <h1>{{ station.name }}</h1>
-    <p>Gasoline Tanks: {{ station.gasoline_tanks }}</p>
-    <p>Gasoline Nozzles: {{ station.gasoline_nozzles }}</p>
-    <p>Gas Tanks: {{ station.gas_tanks }}</p>
-    <p>Gas Nozzles: {{ station.gas_nozzles }}</p>
-    <p>Control Period: {{ station.get_control_period_display }}</p>
-    <p>Product Type: {{ station.get_product_type_display }}</p>
-    <p>Gasoline Initial Stock: {{ station.gasoline_initial_stock }}</p>
-    <p>Gasoline Received: {{ station.gasoline_received }}</p>
-    <p>Gasoline Tank 1 Stock: {{ station.gasoline_tank1_stock }}</p>
-    <p>Gasoline Tank 2 Stock: {{ station.gasoline_tank2_stock }}</p>
-    <p>Gasoline Electronic Sales: {{ station.gasoline_electronic_sales }}</p>
-    <p>Gas Initial Stock: {{ station.gas_initial_stock }}</p>
-    <p>Gas Received: {{ station.gas_received }}</p>
-    <p>Gas Tank 1 Stock: {{ station.gas_tank1_stock }}</p>
-    <p>Gas Tank 2 Stock: {{ station.gas_tank2_stock }}</p>
-    <p>Diesel Electronic Sales: {{ station.diesel_electronic_sales }}</p>
+<h1>{{ station.name }}</h1>
+<p>مخازن بنزین: {{ station.gasoline_tanks }}</p>
+<p>نازل های بنزین: {{ station.gasoline_nozzles }}</p>
+<p>مخازن گاز: {{ station.gas_tanks }}</p>
+<p>نازل های گاز: {{ station.gas_nozzles }}</p>
+<p>دوره کنترل: {{ station.get_control_period_display }}</p>
+<p>نوع محصول: {{ station.get_product_type_display }}</p>
+<p>موجودی اولیه بنزین: {{ station.gasoline_initial_stock }}</p>
+<p>بنزین دریافتی: {{ station.gasoline_received }}</p>
+<p>انبار بنزین شماره 1: {{ station.gasoline_tank1_stock }}</p>
+<p>انبار بنزین شماره 2: {{ station.gasoline_tank2_stock }}</p>
+<p>فروش الکترونیکی بنزین: {{ station.gasoline_electronic_sales }}</p>
+<p>موجودی اولیه گاز: {{ station.gas_initial_stock }}</p>
+<p>گاز دریافتی: {{ station.gas_received }}</p>
+<p>مخزن گاز شماره 1 : {{ station.gas_tank1_stock }}</p>
+<p> مخزن گاز شماره 2: {{ station.gas_tank2_stock }}</p>
+<p>فروش  الکترونیکی گاز: {{ station.diesel_electronic_sales }}</p>
 
     <h2>نازل های بنزین</h2>
     <ul>

@@ -24,13 +24,13 @@ $(document).ready(function() {
         formset.empty();
         for (var i = 0; i < count; i++) {
             var form = $('<div>').append(
-                $('<label>').text('Nozzle ' + (i + 1) + ' Totalizer Start'),
+                $('<label>').text('شماره نازل ' + (i + 1) + ' پایان توتالایزر'),
                 $('<input>').attr({
                     'type': 'number',
                     'name': type + '_nozzle-' + i + '-totalizer_start',
                     'id': 'id_' + type + '_nozzle-' + i + '-totalizer_start'
                 }),
-                $('<label>').text('Nozzle ' + (i + 1) + ' Totalizer End'),
+                $('<label>').text('شماره نازل ' + (i + 1) + ' شروع توتالایزر'),
                 $('<input>').attr({
                     'type': 'number',
                     'name': type + '_nozzle-' + i + '-totalizer_end',
@@ -56,7 +56,7 @@ $(document).ready(function() {
         formset.empty();
         for (var i = 0; i < count; i++) {
             var form = $('<div>').append(
-                $('<label>').text('Tank ' + (i + 1) + ' Final Stock'),
+                $('<label>').text('شماره مخزن ' + (i + 1) + ' موجودی نهایی'),
                 $('<input>').attr({
                     'type': 'number',
                     'name': type + '_tank-' + i + '-final_stock',
@@ -76,20 +76,26 @@ $(document).ready(function() {
             formset.append(form);
         }
     }
-});
-console.log("text");
 
-// NAVBAR TEXT
+    function calculateTotals() {
+        var gasolineTotal = 0;
+        $('#gasoline_nozzle_formset input[id^="id_gasoline_nozzle-"]').each(function(index) {
+            var totalizerStart = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_start').val()) || 0;
+            var totalizerEnd = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_end').val()) || 0;
+            gasolineTotal += (totalizerEnd - totalizerStart);
+        });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const title = document.getElementById('navbar-title');
-    console.log("text");
-    setTimeout(() => {
-        title.style.opacity = 1;
-    }, 1000); // Start the animation after 500ms
+        var gasTotal = 0;
+        $('#gas_nozzle_formset input[id^="id_gas_nozzle-"]').each(function(index) {
+            var totalizerStart = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_start').val()) || 0;
+            var totalizerEnd = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_end').val()) || 0;
+            gasTotal += (totalizerEnd - totalizerStart);
+        });
+
+        $('#gasoline_total').text('مجموع بنزین: ' + gasolineTotal);
+        $('#gas_total').text('مجموع گاز: ' + gasTotal);
+    }
+
+    // Recalculate totals when input values change
+    $(document).on('input', 'input[id^="id_gasoline_nozzle-"], input[id^="id_gas_nozzle-"]', calculateTotals);
 });
-consoless
-dfdf
-dfd
-dfd
-function

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+  .styled-input {
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 95%;
+  }
+
+  .styled-input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+
+  .styled-input::placeholder {
+    color: #bbb;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .basehide, .GazShow, .GazoiilShow, .allShow {
+    display: none;
+  }
+
+  .section-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+</style>
+
+<div class="container mt-4">
+  <p class="text-center">لطفا یکی از موارد زیر انتخاب کنید</p>
+  
+  <div class="row border-bottom pb-3 mb-3">
+    <div class="col-4">
+      <button id="showGas" class="btn btn-outline-danger w-100">گاز</button>
+    </div>
+    <div class="col-4">
+      <button id="showGasoiil" class="btn btn-outline-warning w-100">گازوییل</button>
+    </div>
+    <div class="col-4">
+      <button id="showAll" class="btn btn-outline-secondary w-100">هر دو</button>
+    </div>
+  </div>
+
+  <form method="post" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <h2 class="section-title GazoiilShow">Gasoline Nozzles</h2>
+    <div class="GazoiilShow" id="gasoline_nozzle_formset">
+      <!-- Forms for Gasoline Nozzles will be added here dynamically -->
+    </div>
+    
+    <h2 class="section-title GazShow">Gas Nozzles</h2>
+    <div class="GazShow" id="gas_nozzle_formset">
+      <!-- Forms for Gas Nozzles will be added here dynamically -->
+    </div>
+    
+    <h2 class="section-title GazoiilShow">Gasoline Tanks</h2>
+    <div class="GazoiilShow" id="gasoline_tank_formset">
+      <!-- Forms for Gasoline Tanks will be added here dynamically -->
+    </div>
+    
+    <h2 class="section-title GazShow">Gas Tanks</h2>
+    <div class="GazShow" id="gas_tank_formset">
+      <!-- Forms for Gas Tanks will be added here dynamically -->
+    </div>
+    
+    <button class="btn btn-success w-100 mb-5" type="submit">تمام و تایید</button>
+  </form>
+  
+ 
+</div>
+
+<script>
+  document.getElementById('showGas').addEventListener('click', function() {
+    var allElements = document.querySelectorAll('.basehide, .GazoiilShow, .allShow');
+    allElements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+    var gasElements = document.querySelectorAll('.GazShow');
+    gasElements.forEach(function(element) {
+      element.style.display = 'block';
+    });
+  });
+
+  document.getElementById('showGasoiil').addEventListener('click', function() {
+    var allElements = document.querySelectorAll('.basehide, .GazShow, .allShow');
+    allElements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+    var gasoiilElements = document.querySelectorAll('.GazoiilShow');
+    gasoiilElements.forEach(function(element) {
+      element.style.display = 'block';
+    });
+  });
+
+  document.getElementById('showAll').addEventListener('click', function() {
+    var allElements = document.querySelectorAll('.basehide, .GazShow, .GazoiilShow');
+    allElements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+    var allShowElements = document.querySelectorAll('.allShow');
+    allShowElements.forEach(function(element) {
+      element.style.display = 'block';
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block body %}
+
+<style>
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .btn-custom {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">فایل‌های پی‌دی‌اف</h2>
+
+    <div class="row">
+        {% for station in stations %}
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <p class="card-title ">{{ station.name }}</p>
+                    <a href="{% url 'station_detail' station.id %}" class="btn btn-primary btn-custom">مشاهده جزئیات</a>
+                    <a href="{% url 'generate_pdf' station.id %}" class="btn btn-secondary btn-custom">تولید PDF</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
