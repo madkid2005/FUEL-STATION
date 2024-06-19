@@ -1,40 +1,99 @@
-
 {% extends "base.html" %}
+{% load static %}
 {% block body %}
 
 <style>
-    .card-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .card-body {
-        padding: 1.25rem;
-    }
-    
     .btn-custom {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
+        background: linear-gradient(45deg, rgb(255, 32, 32),#c20202);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 10px;
+        margin: 1px;
+        border-radius: 25px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        animation: pulse 2s infinite;
     }
+
+    .btn-custom:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(218, 9, 2, 0.973);
+        }
+        70% {
+            box-shadow: 0 0 0 20px rgba(255, 140, 0, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 140, 0, 0);
+        }
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        color: #ffffff;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .card-title:hover {
+        color: #1400c7;
+    }
+
+    .card-body {
+        background-color: #0f0f0f;
+        color: #fff;
+    }
+
+    .container {
+        background-color: #000000;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+   
+  
 </style>
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4">فایل‌های پی‌دی‌اف</h2>
+<div class="w-100 bg-black d-flex justify-content-between border-bottom">
+    <div>
+        <h6 class="text-white fw-bold  mt-5 ms-2">
+            <i class="bi bi-list-columns-reverse text-white fw-bold mt-1"></i>
+
+            فایل‌های پی‌دی‌اف
+            
+        </h6>
+
+    </div>
+    <div>
+    <img class="me-2 mt-2" src="{% static '/img/logo.png' %}" alt="" style="width: 100px;">
+
+    </div>
+</div>
+
+<div class="container-fluid mt-2">
 
     <div class="row">
         {% for station in stations %}
         <div class="col-md-6 mb-3">
             <div class="card shadow-sm">
-                <div class="card-body text-center">
+                <div class="card-body d-flex justify-content-between">
+                    <div class="text-start mt-1">
+                      
+
+                           <a class="card-title" href="{% url 'station_detail' station.id %}"> <small>{{ station.name }}</small></a> 
+                    </div>
+                    <div class="text-end">
+
+                        <a class="btn btn-primary btn-custom" href="{% url 'generate_pdf' station.id %}">دانلود فایل</a>
+                    </div>
                     
-
-                  <p>
-
-                      <a class="card-title " href="{% url 'station_detail' station.id %}">{{ station.name }}</a> 
-                  </p> 
-                    <a class="btn btn-primary btn-custom" href="{% url 'generate_pdf' station.id %}">Generate PDF</a>
-                    <a class="btn btn-secondary btn-custom" href="{% url 'generate_pdf_reportlab' station.pk %}">generate_pdf_reportlab PDF</a>
-        
+                    <!-- <a class="btn btn-secondary btn-custom" href="{% url 'generate_pdf_reportlab' station.pk %}">generate_pdf_reportlab PDF</a> -->
                 </div>
             </div>
         </div>

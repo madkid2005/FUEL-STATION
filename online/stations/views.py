@@ -171,11 +171,11 @@ def generate_pdf(request, pk):
     html = template.render(context)
     
     # تنظیمات فونت
-    font_path = os.path.join(settings.BASE_DIR, 'static/fonts/Vazirmatn-Black.ttf')
+    font_path = os.path.join(settings.BASE_DIR, 'static/fonts/Vazir.ttf')
     pisa_status = pisa.CreatePDF(
         html, dest=response,
         encoding='UTF-8',
-        link_callback=lambda uri, rel: font_path if uri == 'static/fonts/Vazirmatn-Black.ttf' else uri
+        link_callback=lambda uri, rel: font_path if uri == 'static/fonts/Vazir.ttf' else uri
     )
 
     if pisa_status.err:
@@ -239,12 +239,12 @@ def generate_pdf_reportlab(request, pk):
     styles = getSampleStyleSheet()
     
     # ثبت فونت فارسی
-    pdfmetrics.registerFont(TTFont('Vazir', 'static/fonts/Vazir.ttf'))
-    addMapping('Vazir', 0, 0, 'Vazir')
+    pdfmetrics.registerFont(TTFont('Vazirmatn-Black', 'static/fonts/Vazirmatn-Black.ttf'))
+    addMapping('Vazirmatn-Black', 0, 0, 'Vazirmatn-Black')
     
     # تغییر سبک‌های پیش‌فرض به فونت فارسی
-    styles['Title'].fontName = 'Vazir'
-    styles['Normal'].fontName = 'Vazir'
+    styles['Title'].fontName = 'Vazirmatn-Black'
+    styles['Normal'].fontName = 'Vazirmatn-Black'
     
     elements = []
     

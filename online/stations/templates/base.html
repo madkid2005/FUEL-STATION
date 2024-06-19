@@ -1,147 +1,578 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}مدیریت جایگاه سوخت{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        body {
-            background-color: #fff;
-        }
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+<style>
+    @font-face {
+    font-family: 'Vazirmatn-Black';
+    src: url('/static/fonts/Vazirmatn-Black.ttf') format('truetype');
+    font-weight: small;
+    font-style: normal;
+}
 
-        .default-color {
-            color: #858a91;
-        }
+body {
+    background-color: #000000;
+    font-family: 'Vazirmatn-Black';
 
-        .orange-color {
-            color: #000000 !important;
-        }
+}
 
-        .fixed-bottom-options {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #f8f9fa;
-            padding: 5px;
-            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-        }
+.default-color {
+    color: #c5c5c5;
+}
+
+.orange-color {
+    color: #ffffff !important;
+}
+
+.fixed-bottom-options {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    padding: 5px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
 
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #f8f9fa;
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #000000;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+li{
+list-style: none;
+}
+
+
+.form-group {
             position: relative;
-            bottom: 0;
             width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
         }
-    </style>
-</head>
 
+        .styled-input {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        select:hover,
+        select:focus {
+            border-color: #555;
+        }
+
+        option {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fff;
+            border: none;
+        }
+
+        option:first-child {
+            color: grey; /* Color for the placeholder */
+        }
+
+/* station form */
+.styled-input {
+    width: 300px;
+    padding: 8px;
+    margin: 10px;
+    border: 2px solid #686868;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 95%;
+    margin-bottom: 15px;
+
+  }
+
+  .styled-input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+
+  .styled-input::placeholder {
+    color: #bbb;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .basehide, .GazShow, .GazoiilShow, .allShow {
+    display: none;
+  }
+
+  .section-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+/* station list */
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.btn-custom {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+.btn-outline-danger.active {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-outline-warning.active {
+    background-color: #ffc107;
+    color: black;
+  }
+  
+  .btn-outline-secondary.active {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .form-control {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+/* */
+
+
+.form-group {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    transition: 0.3s;
+    pointer-events: none;
+    color: grey;
+    font-size: 16px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid grey;
+    background: transparent;
+    color: rgb(0, 0, 0); /* برای نمایش بهتر در زمینه تیره */
+}
+
+input:focus {
+    outline: none;
+}
+
+input:focus + label,
+input:valid + label {
+    top: 0;
+    left: 10px;
+    font-size: 12px;
+    color: red;
+}
+
+input:focus {
+    border-bottom: 2px solid red;
+}
+input::placeholder {
+    color: rgb(90, 90, 90);
+}
+
+
+</style>
+</head>
 <body>
-    <div class="navbar shadow mb-4">
-        <span id="navbar-title">ســـامانه بازرسی جایگــاه سوخت</span>
-    </div>
+    
     {% block body %}
     {% endblock %}
-
-<header>
-   
-        
-        <!-- ______Fixed bottom options MOBILE_________ -->
-  
-<div class="fixed-bottom fixed-bottom-options">
-    <div class="container-fluid">
-        <div class="row text-center">
-            <div class="col-4 d-md-none d-grid">
-                <span class="text-center">
-                    <a href="{% url 'create_station' %}" class="btn-change-color" data-id="create_station">
-                        <i class="bi bi-folder-plus h3 default-color"></i>
-                    </a>
-                </span>
-                <span class="text-colorforbuy default-color"><small><small>ایجاد فایل</small></small></span>
-            </div>
-            <div class="col-4 d-md-none d-grid">
-                <span class="text-center">
-                    <a href="{% url 'station_list' %}" class="btn-change-color" data-id="station_list">
-                        <i class="bi bi-ui-checks-grid text-colorforbuyLow h3 default-color"></i>
-                    </a>
-                </span>
-                <span class="text-colorforbuy default-color"><small><small>لیست PDF</small></small></span>
-            </div>
-            <div class="col-4 d-md-none d-grid">
-                <span class="text-center">
-                    <a href="{% url 'station_list' %}" class="btn-change-color" data-id="profile">
-                        <i class="bi bi-person-fill h3 default-color"></i>
-                    </a>
-                </span>
-                <span class="text-colorforbuy default-color"><small><small>پروفایل</small></small></span>
+    
+    <!-- ______Fixed bottom options MOBILE_________ -->
+    <header>
+        <div class="fixed-bottom fixed-bottom-options">
+            <div class="container-fluid">
+                <div class="row text-center">
+                    <div class="col-4 d-grid">
+                        <span class="text-center">
+                            <a href="{% url 'create_station' %}" class="btn-change-color" data-id="create_station">
+                                <i class="bi bi-folder-plus h3 default-color"></i>
+                            </a>
+                        </span>
+                        <span class="text-colorforbuy default-color"><small><small>ایجاد فایل</small></small></span>
+                    </div>
+                    <div class="col-4 d-grid">
+                        <span class="text-center">
+                            <a href="{% url 'station_list' %}" class="btn-change-color" data-id="station_list">
+                                <i class="bi bi-ui-checks-grid text-colorforbuyLow h3 default-color"></i>
+                            </a>
+                        </span>
+                        <span class="text-colorforbuy default-color"><small><small>لیست PDF</small></small></span>
+                    </div>
+                    <div class="col-4 d-grid">
+                        <span class="text-center">
+                            <a href="{% url 'station_list' %}" class="btn-change-color" data-id="profile">
+                                <i class="bi bi-person-fill h3 default-color"></i>
+                            </a>
+                        </span>
+                        <span class="text-colorforbuy default-color"><small><small>پروفایل</small></small></span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </header>
 
-
-
-</header>
+    <!--     FOOTER       -->
     <footer>
         <p>&copy; 2024 مدیریت جایگاه سوخت</p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var activeButtonId = localStorage.getItem('activeButtonId');
-            if (activeButtonId) {
-                var activeButton = document.querySelector(`.btn-change-color[data-id="${activeButtonId}"] i`);
-                var activeText = document.querySelector(`.btn-change-color[data-id="${activeButtonId}"]`).parentElement.nextElementSibling;
-                if (activeButton) {
-                    activeButton.classList.remove('default-color');
-                    activeButton.classList.add('orange-color');
-                }
-                if (activeText) {
-                    activeText.classList.remove('default-color');
-                    activeText.classList.add('orange-color');
-                }
-            }
+        $(document).ready(function() {
+    $('#id_gasoline_nozzles').change(function() {
+        var count = $(this).val();
+        updateNozzleFormset('gasoline', count);
+    });
+
+    $('#id_gas_nozzles').change(function() {
+        var count = $(this).val();
+        updateNozzleFormset('gas', count);
+    });
+
+    $('#id_gasoline_tanks').change(function() {
+        var count = $(this).val();
+        updateTankFormset('gasoline', count);
+    });
+
+    $('#id_gas_tanks').change(function() {
+        var count = $(this).val();
+        updateTankFormset('gas', count);
+    });
+
+    function updateNozzleFormset(type, count) {
+        var formset = $('#' + type + '_nozzle_formset');
+        formset.empty();
+        for (var i = 0; i < count; i++) {
+            var form = $('<div>').append(
+                $('<label>').text('شماره نازل ' + (i + 1) + ' پایان توتالایزر'),
+                $('<input>').attr({
+                    'type': 'number',
+                    'name': type + '_nozzle-' + i + '-totalizer_start',
+                    'id': 'id_' + type + '_nozzle-' + i + '-totalizer_start'
+                }),
+                $('<label>').text('شماره نازل ' + (i + 1) + ' شروع توتالایزر'),
+                $('<input>').attr({
+                    'type': 'number',
+                    'name': type + '_nozzle-' + i + '-totalizer_end',
+                    'id': 'id_' + type + '_nozzle-' + i + '-totalizer_end'
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_nozzle-' + i + '-nozzle_number',
+                    'value': (i + 1)
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_nozzle-' + i + '-station',
+                    'value': ''
+                })
+            );
+            formset.append(form);
+        }
+    }
+
+    function updateTankFormset(type, count) {
+        var formset = $('#' + type + '_tank_formset');
+        formset.empty();
+        for (var i = 0; i < count; i++) {
+            var form = $('<div>').append(
+                $('<label>').text('شماره مخزن ' + (i + 1) + ' موجودی نهایی'),
+                $('<input>').attr({
+                    'type': 'number',
+                    'name': type + '_tank-' + i + '-final_stock',
+                    'id': 'id_' + type + '_tank-' + i + '-final_stock'
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_tank-' + i + '-tank_number',
+                    'value': (i + 1)
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_tank-' + i + '-station',
+                    'value': ''
+                })
+            );
+            formset.append(form);
+        }
+    }
+
+    function calculateTotals() {
+        var gasolineTotal = 0;
+        $('#gasoline_nozzle_formset input[id^="id_gasoline_nozzle-"]').each(function(index) {
+            var totalizerStart = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_start').val()) || 0;
+            var totalizerEnd = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_end').val()) || 0;
+            gasolineTotal += (totalizerEnd - totalizerStart);
         });
 
-        document.querySelectorAll('.btn-change-color').forEach(function(element) {
-            element.addEventListener('click', function(event) {
-                document.querySelectorAll('.btn-change-color i').forEach(function(icon) {
-                    icon.classList.remove('orange-color');
-                    icon.classList.add('default-color');
-                });
-                document.querySelectorAll('.text-colorforbuy').forEach(function(text) {
-                    text.classList.remove('orange-color');
-                    text.classList.add('default-color');
-                });
-
-                var icon = this.querySelector('i');
-                var text = this.parentElement.nextElementSibling;
-                if (icon) {
-                    icon.classList.remove('default-color');
-                    icon.classList.add('orange-color');
-                }
-                if (text) {
-                    text.classList.remove('default-color');
-                    text.classList.add('orange-color');
-                }
-
-                var buttonId = this.getAttribute('data-id');
-                localStorage.setItem('activeButtonId', buttonId);
-            });
+        var gasTotal = 0;
+        $('#gas_nozzle_formset input[id^="id_gas_nozzle-"]').each(function(index) {
+            var totalizerStart = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_start').val()) || 0;
+            var totalizerEnd = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_end').val()) || 0;
+            gasTotal += (totalizerEnd - totalizerStart);
         });
- 
-        
-        
+
+        $('#gasoline_total').text('مجموع بنزین: ' + gasolineTotal);
+        $('#gas_total').text('مجموع گاز: ' + gasTotal);
+    }
+
+    // Recalculate totals when input values change
+    $(document).on('input', 'input[id^="id_gasoline_nozzle-"], input[id^="id_gas_nozzle-"]', calculateTotals);
+});
+// -----------------------------------------------------------------------------------------
+
+// .......... base.html
+
+document.addEventListener('DOMContentLoaded', function() {
+    var activeButtonId = localStorage.getItem('activeButtonId');
+    if (activeButtonId) {
+        var activeButton = document.querySelector(`.btn-change-color[data-id="${activeButtonId}"] i`);
+        var activeText = document.querySelector(`.btn-change-color[data-id="${activeButtonId}"]`).parentElement.nextElementSibling;
+        if (activeButton) {
+            activeButton.classList.remove('default-color');
+            activeButton.classList.add('orange-color');
+        }
+        if (activeText) {
+            activeText.classList.remove('default-color');
+            activeText.classList.add('orange-color');
+        }
+    }
+});
+
+document.querySelectorAll('.btn-change-color').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+        document.querySelectorAll('.btn-change-color i').forEach(function(icon) {
+            icon.classList.remove('orange-color');
+            icon.classList.remove('fw-bold');
+
+            icon.classList.add('default-color');
+        });
+        document.querySelectorAll('.text-colorforbuy').forEach(function(text) {
+            text.classList.remove('orange-color');
+            icon.classList.remove('fw-bold');
+
+            text.classList.add('default-color');
+        });
+
+        var icon = this.querySelector('i');
+        var text = this.parentElement.nextElementSibling;
+        if (icon) {
+            icon.classList.remove('default-color');
+            icon.classList.add('orange-color');
+            icon.classList.add('fw-bold');
+
+        }
+        if (text) {
+            text.classList.remove('default-color');
+            text.classList.add('orange-color');
+            icon.classList.add('fw-bold');
+
+        }
+
+        var buttonId = this.getAttribute('data-id');
+        localStorage.setItem('activeButtonId', buttonId);
+    });
+});
+
+// ............. station form 
+
+document.getElementById('showGas').addEventListener('click', function() {
+    var allElements = document.querySelectorAll('.basehide, .GazoiilShow, .allShow');
+    allElements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+    var gasElements = document.querySelectorAll('.GazShow');
+    gasElements.forEach(function(element) {
+      element.style.display = 'block';
+    });
+  });
+
+  document.getElementById('showGasoiil').addEventListener('click', function() {
+    var allElements = document.querySelectorAll('.basehide, .GazShow, .allShow');
+    allElements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+    var gasoiilElements = document.querySelectorAll('.GazoiilShow');
+    gasoiilElements.forEach(function(element) {
+      element.style.display = 'block';
+    });
+  });
+
+  document.getElementById('showAll').addEventListener('click', function() {
+    var allElements = document.querySelectorAll('.basehide, .GazShow, .GazoiilShow');
+    allElements.forEach(function(element) {
+      element.style.display = 'none';
+    });
+    var allShowElements = document.querySelectorAll('.allShow');
+    allShowElements.forEach(function(element) {
+      element.style.display = 'block';
+    });
+  });
+
+  $(document).ready(function() {
+    $('#id_gasoline_nozzles').change(function() {
+        var count = $(this).val();
+        updateNozzleFormset('gasoline', count);
+    });
+
+    $('#id_gas_nozzles').change(function() {
+        var count = $(this).val();
+        updateNozzleFormset('gas', count);
+    });
+
+    $('#id_gasoline_tanks').change(function() {
+        var count = $(this).val();
+        updateTankFormset('gasoline', count);
+    });
+
+    $('#id_gas_tanks').change(function() {
+        var count = $(this).val();
+        updateTankFormset('gas', count);
+    });
+
+    function updateNozzleFormset(type, count) {
+        var formset = $('#' + type + '_nozzle_formset');
+        formset.empty();
+        for (var i = 0; i < count; i++) {
+            var form = $('<div>').append(
+                $('<label>').text('شماره نازل ' + (i + 1) + ' پایان توتالایزر'),
+                $('<input>').attr({
+                    'type': 'number',
+                    'name': type + '_nozzle-' + i + '-totalizer_start',
+                    'id': 'id_' + type + '_nozzle-' + i + '-totalizer_start'
+                }),
+                $('<label>').text('شماره نازل ' + (i + 1) + ' شروع توتالایزر'),
+                $('<input>').attr({
+                    'type': 'number',
+                    'name': type + '_nozzle-' + i + '-totalizer_end',
+                    'id': 'id_' + type + '_nozzle-' + i + '-totalizer_end'
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_nozzle-' + i + '-nozzle_number',
+                    'value': (i + 1)
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_nozzle-' + i + '-station',
+                    'value': ''
+                })
+            );
+            formset.append(form);
+        }
+    }
+
+    function updateTankFormset(type, count) {
+        var formset = $('#' + type + '_tank_formset');
+        formset.empty();
+        for (var i = 0; i < count; i++) {
+            var form = $('<div>').append(
+                $('<label>').text('شماره مخزن ' + (i + 1) + ' موجودی نهایی'),
+                $('<input>').attr({
+                    'type': 'number',
+                    'name': type + '_tank-' + i + '-final_stock',
+                    'id': 'id_' + type + '_tank-' + i + '-final_stock'
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_tank-' + i + '-tank_number',
+                    'value': (i + 1)
+                }),
+                $('<input>').attr({
+                    'type': 'hidden',
+                    'name': type + '_tank-' + i + '-station',
+                    'value': ''
+                })
+            );
+            formset.append(form);
+        }
+    }
+
+    function calculateTotals() {
+        var gasolineTotal = 0;
+        $('#gasoline_nozzle_formset input[id^="id_gasoline_nozzle-"]').each(function(index) {
+            var totalizerStart = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_start').val()) || 0;
+            var totalizerEnd = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_end').val()) || 0;
+            gasolineTotal += (totalizerEnd - totalizerStart);
+        });
+
+        var gasTotal = 0;
+        $('#gas_nozzle_formset input[id^="id_gas_nozzle-"]').each(function(index) {
+            var totalizerStart = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_start').val()) || 0;
+            var totalizerEnd = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_end').val()) || 0;
+            gasTotal += (totalizerEnd - totalizerStart);
+        });
+
+        $('#gasoline_total').text('مجموع بنزین: ' + gasolineTotal);
+        $('#gas_total').text('مجموع گاز: ' + gasTotal);
+    }
+
+    // Recalculate totals when input values change
+    $(document).on('input', 'input[id^="id_gasoline_nozzle-"], input[id^="id_gas_nozzle-"]', calculateTotals);
+});
+
+//  ......... station list 
+
     </script>
 </body>
 </html>

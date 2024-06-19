@@ -27,6 +27,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'stations',
+    'crispy_forms',
+    'crispy_bootstrap4',  
+
+
 ]
 
 MIDDLEWARE = [
@@ -113,8 +117,16 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+
+# مسیر برای فایل‌های استاتیک در حالت توسعه
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, "static"),
 ]
+
+# مسیر برای فایل‌های استاتیک جمع‌آوری شده (در حالت تولید)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,224 +1,275 @@
 {% extends "base.html" %}
+{% load static %}
+<head>
+    <style>
+      
+    </style>
+</head>
 {% block body %}
-<style>
-  .styled-input {
-    width: 300px;
-    padding: 10px;
-    margin: 10px;
-    border: 2px solid #ccc;
-    border-radius: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    width: 95%;
-  }
 
-  .styled-input:focus {
-    border-color: #6c63ff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    outline: none;
-  }
+<div class="w-100 bg-black d-flex justify-content-between border-bottom">
+    <div>
+        <h6 class="text-white fw-bold  mt-5 ms-2">
+            <i class="bi bi-file-earmark-plus text-white fw-bold mt-1"></i>
 
-  .styled-input::placeholder {
-    color: #bbb;
-  }
+           ایجاد فایل جدید
+            
+        </h6>
 
-  .hidden {
-    display: none;
-  }
+    </div>
+    <div>
+    <img class="me-2 mt-2" src="{% static '/img/logo.png' %}" alt="" style="width: 100px;">
 
-  .basehide, .GazShow, .GazoiilShow, .allShow {
-    display: none;
-  }
-
-  .section-title {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    text-align: center;
-  }
-</style>
-
-<div class="container mt-4">
-  <p class="text-center">لطفا یکی از موارد زیر انتخاب کنید</p>
-  
-  <div class="row border-bottom pb-3 mb-3">
-    <div class="col-4">
-      <button id="showGas" class="btn btn-outline-danger w-100">گاز</button>
     </div>
-    <div class="col-4">
-      <button id="showGasoiil" class="btn btn-outline-warning w-100">گازوییل</button>
-    </div>
-    <div class="col-4">
-      <button id="showAll" class="btn btn-outline-secondary w-100">هر دو</button>
-    </div>
-  </div>
-
-  <form method="post" class="mt-3">
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <h2 class="section-title GazoiilShow">Gasoline Nozzles</h2>
-    <div class="GazoiilShow styled-input GazoiilShow" id="gasoline_nozzle_formset">
-      <!-- Forms for Gasoline Nozzles will be added here dynamically -->
-    </div>
-    
-    <h2 class="section-title GazShow">Gas Nozzles</h2>
-    <div class="GazShow" id="gas_nozzle_formset">
-      <!-- Forms for Gas Nozzles will be added here dynamically -->
-    </div>
-    
-    <h2 class="section-title GazoiilShow">Gasoline Tanks</h2>
-    <div class="GazoiilShow" id="gasoline_tank_formset">
-      <!-- Forms for Gasoline Tanks will be added here dynamically -->
-    </div>
-    
-    <h2 class="section-title GazShow">Gas Tanks</h2>
-    <div class="GazShow" id="gas_tank_formset">
-      <!-- Forms for Gas Tanks will be added here dynamically -->
-    </div>
-    
-    <button class="btn btn-success w-100 mb-5" type="submit">تمام و تایید</button>
-  </form>
-  
- 
 </div>
 
+<div id="one" class="container mt-3">
+    <p class="text-center text-white ">لطفا موارد زیر را پر کنید و دکمه بعدی بزنید</p>
+
+    <form method="post" class="group">
+        {% csrf_token %}
+        <!-- form fields -->
+       
+        <!-- .......................infos of station..................... -->
+
+        <div class="form-group styled-input d-flex">
+            <label class="text-white " for="id_name"></label>
+            <input type="text" class=" w-100 bg-white" id="id_name" name="name" placeholder="اسم جایگاه">
+        </div>
+       
+       
+        <div class="form-group styled-input d-flex">
+
+            <select name="control_period" id="id_control_period" class="w-100 border-0">
+            
+                <option class="w-25 ms-3" value="" disabled selected hidden>دوره کنترل انتخاب کنید</option>
+                <option class="w-25 ms-3" value="first">ابتدا</option>
+                <option class="w-25 ms-3" value="last">انتها</option>
+        </select>
+        </div>
+
+        <div class="form-group styled-input d-flex">
+            <label for="id_start_date"> </label>
+            <input type="text" class="" id="id_start_date" name="start_date" placeholder="تاریخ شروع ">
+        </div>
+
+
+        <div class="form-group styled-input d-flex">
+            <label for="id_end_date"></label>
+            <input type="text" class="" id="id_end_date" name="end_date" placeholder="تاریخ شروع ">
+        </div>
+
+
+
+        <div class="form-group styled-input d-flex">
+            <select name="product_type" id="id_product_type" class="w-100 border-0">
+
+                    <option class="w-25 ms-3" value="" disabled selected hidden> نوع محصول را انتخاب کنید  </option>
+                    <option class="w-25 ms-3" value="first">ابتدا</option>
+                    <option class="w-25 ms-3" value="last">انتها</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<div id="two" class="hidden">
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <div class="row border-bottom pb-3 mb-3">
+            <div class="col-4">
+                <button id="showGas" type="button" class="btn btn-outline-danger w-100">گاز</button>
+            </div>
+
+            <div class="col-4">
+                <button id="showGasoiil" type="button" class="btn btn-outline-warning w-100">گازوییل</button>
+            </div>
+
+            <div class="col-4">
+                <button id="showAll" type="button" class="btn btn-outline-secondary w-100">هر دو</button>
+            </div>
+        </div>
+
+        <!--   .......................... BENZIN fiels ........................  -->
+        <div id="GasolineFields" class="hidden">
+            
+            
+        <div class="form-group styled-input d-flex">
+            <label for="id_gasoline_tanks"></label>
+            <input type="number" class="" id="id_gasoline_tanks"  placeholder="تعداد مخازن بنزین ">
+        </div>
+
+
+            
+
+            <div class="form-group styled-input d-flex">
+                <label for="id_gasoline_nozzles"></label>
+                <input type="number" class="" id="id_gasoline_nozzles"  placeholder="تعداد نازل‌های بنزین ">
+            </div>
+
+           
+            <div class="form-group styled-input d-flex">
+                <label for="id_gasoline_initial_stock"></label>
+                <input type="number" class="" id="id_gasoline_initial_stock"  placeholder="موجودی اولیه بنزین ">
+            </div>
+
+            <div class="form-group styled-input d-flex">
+                <label for="id_gasoline_received"></label>
+                <input type="number" class="" id="id_gasoline_received"  placeholder="بنزین دریافتی ">
+            </div>
+
+
+
+            
+            <div class="form-group styled-input d-flex">
+                <label for="id_gasoline_electronic_sales"></label>
+                <input type="number" class="" id="id_gasoline_electronic_sales"  placeholder="فروش الکترونیکی بنزین ">
+            </div>
+
+
+            
+            <div class="form-group styled-input d-flex">
+                <label for="id_gasoline_electronic_samane_sales"></label>
+                <input type="number" class="" id="id_gasoline_electronic_samane_sales"  placeholder="فروش الکترونیکی سامانه بنزین ">
+            </div>
+
+            <h2 class="section-title">Gasoline Tanks</h2>
+            <div id="gasoline_tank_formset">
+                {% for form in gasoline_tank_formset %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.tank_number.label_tag }} {{ form.tank_number }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.final_stock.label_tag }} {{ form.final_stock }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h2 class="section-title">Gasoline Nozzles</h2>
+            <div id="gasoline_nozzle_formset">
+                {% for form in gasoline_nozzle_formset %}
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.nozzle_number.label_tag }} {{ form.nozzle_number }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.totalizer_start.label_tag }} {{ form.totalizer_start }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.totalizer_end.label_tag }} {{ form.totalizer_end }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!--   ............................GAZ fields........................  -->
+        <div id="GasFields" class="hidden">
+            <div class="form-group">
+                <label for="id_gas_tanks"> تعداد مخازن گاز </label>
+                <input type="number" class="form-control" id="id_gas_tanks" name="gas_tanks">
+            </div>
+
+            <div class="form-group">
+                <label for="id_gas_nozzles"> تعداد نازل‌های گاز </label>
+                <input type="number" class="form-control" id="id_gas_nozzles" name="gas_nozzles">
+            </div>
+
+            <div class="form-group">
+                <label for="id_gas_initial_stock"> موجودی اولیه گاز </label>
+                <input type="number" class="form-control" id="id_gas_initial_stock" name="gas_initial_stock">
+            </div>
+
+            <div class="form-group">
+                <label for="id_gas_received"> گاز دریافتی </label>
+                <input type="number" class="form-control" id="id_gas_received" name="gas_received">
+            </div>
+
+            <div class="form-group">
+                <label for="id_diesel_electronic_sales"> فروش الکترونیکی گازوئیل </label>
+                <input type="number" class="form-control" id="id_diesel_electronic_sales" name="diesel_electronic_sales">
+            </div>
+
+            <div class="form-group">
+                <label for="id_diesel_electronic_samane_sales"> فروش الکترونیکی سامانه گازوئیل </label>
+                <input type="number" class="form-control" id="id_diesel_electronic_samane_sales" name="diesel_electronic_samane_sales">
+            </div>
+
+            <h2 class="section-title">Gas Tanks</h2>
+            <div id="gas_tank_formset">
+                {% for form in gas_tank_formset %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.tank_number.label_tag }} {{ form.tank_number }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.final_stock.label_tag }} {{ form.final_stock }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h2 class="section-title"> نازل‌های گاز</h2>
+            <div id="gas_nozzle_formset">
+                {% for form in gas_nozzle_formset %}
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.nozzle_number.label_tag }} {{ form.nozzle_number }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.totalizer_start.label_tag }} {{ form.totalizer_start }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.totalizer_end.label_tag }} {{ form.totalizer_end }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="btn btn-success w-100 mb-5" type="submit">تمام و تایید</button>
+    </form>
+</div>
+
+<button id="next-level" class="btn btn-success w-100 mb-5">بعدی</button>
+
 <script>
-  document.getElementById('showGas').addEventListener('click', function() {
-    var allElements = document.querySelectorAll('.basehide, .GazoiilShow, .allShow');
-    allElements.forEach(function(element) {
-      element.style.display = 'none';
-    });
-    var gasElements = document.querySelectorAll('.GazShow');
-    gasElements.forEach(function(element) {
-      element.style.display = 'block';
-    });
-  });
+    const next = document.getElementById('next-level');
+    const one = document.getElementById('one');
+    const two = document.getElementById('two');
+    const gasolineButton = document.getElementById('showGas');
+    const gasoilButton = document.getElementById('showGasoiil');
+    const bothButton = document.getElementById('showAll');
+    const gasolineFields = document.getElementById('GasolineFields');
+    const gasFields = document.getElementById('GasFields');
 
-  document.getElementById('showGasoiil').addEventListener('click', function() {
-    var allElements = document.querySelectorAll('.basehide, .GazShow, .allShow');
-    allElements.forEach(function(element) {
-      element.style.display = 'none';
-    });
-    var gasoiilElements = document.querySelectorAll('.GazoiilShow');
-    gasoiilElements.forEach(function(element) {
-      element.style.display = 'block';
-    });
-  });
+    function nexts() {
+        one.classList.add("hidden");
+        two.classList.remove("hidden");
+        next.classList.add("hidden");
 
-  document.getElementById('showAll').addEventListener('click', function() {
-    var allElements = document.querySelectorAll('.basehide, .GazShow, .GazoiilShow');
-    allElements.forEach(function(element) {
-      element.style.display = 'none';
-    });
-    var allShowElements = document.querySelectorAll('.allShow');
-    allShowElements.forEach(function(element) {
-      element.style.display = 'block';
-    });
-  });
-
-  $(document).ready(function() {
-    $('#id_gasoline_nozzles').change(function() {
-        var count = $(this).val();
-        updateNozzleFormset('gasoline', count);
-    });
-
-    $('#id_gas_nozzles').change(function() {
-        var count = $(this).val();
-        updateNozzleFormset('gas', count);
-    });
-
-    $('#id_gasoline_tanks').change(function() {
-        var count = $(this).val();
-        updateTankFormset('gasoline', count);
-    });
-
-    $('#id_gas_tanks').change(function() {
-        var count = $(this).val();
-        updateTankFormset('gas', count);
-    });
-
-    function updateNozzleFormset(type, count) {
-        var formset = $('#' + type + '_nozzle_formset');
-        formset.empty();
-        for (var i = 0; i < count; i++) {
-            var form = $('<div>').append(
-                $('<label>').text('شماره نازل ' + (i + 1) + ' پایان توتالایزر'),
-                $('<input>').attr({
-                    'type': 'number',
-                    'name': type + '_nozzle-' + i + '-totalizer_start',
-                    'id': 'id_' + type + '_nozzle-' + i + '-totalizer_start'
-                }),
-                $('<label>').text('شماره نازل ' + (i + 1) + ' شروع توتالایزر'),
-                $('<input>').attr({
-                    'type': 'number',
-                    'name': type + '_nozzle-' + i + '-totalizer_end',
-                    'id': 'id_' + type + '_nozzle-' + i + '-totalizer_end'
-                }),
-                $('<input>').attr({
-                    'type': 'hidden',
-                    'name': type + '_nozzle-' + i + '-nozzle_number',
-                    'value': (i + 1)
-                }),
-                $('<input>').attr({
-                    'type': 'hidden',
-                    'name': type + '_nozzle-' + i + '-station',
-                    'value': ''
-                })
-            );
-            formset.append(form);
-        }
     }
 
-    function updateTankFormset(type, count) {
-        var formset = $('#' + type + '_tank_formset');
-        formset.empty();
-        for (var i = 0; i < count; i++) {
-            var form = $('<div>').append(
-                $('<label>').text('شماره مخزن ' + (i + 1) + ' موجودی نهایی'),
-                $('<input>').attr({
-                    'type': 'number',
-                    'name': type + '_tank-' + i + '-final_stock',
-                    'id': 'id_' + type + '_tank-' + i + '-final_stock'
-                }),
-                $('<input>').attr({
-                    'type': 'hidden',
-                    'name': type + '_tank-' + i + '-tank_number',
-                    'value': (i + 1)
-                }),
-                $('<input>').attr({
-                    'type': 'hidden',
-                    'name': type + '_tank-' + i + '-station',
-                    'value': ''
-                })
-            );
-            formset.append(form);
-        }
+    function showGasFields() {
+        gasolineFields.classList.remove("hidden");
+        gasFields.classList.add("hidden");
     }
 
-    function calculateTotals() {
-        var gasolineTotal = 0;
-        $('#gasoline_nozzle_formset input[id^="id_gasoline_nozzle-"]').each(function(index) {
-            var totalizerStart = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_start').val()) || 0;
-            var totalizerEnd = parseFloat($('#id_gasoline_nozzle-' + index + '-totalizer_end').val()) || 0;
-            gasolineTotal += (totalizerEnd - totalizerStart);
-        });
-
-        var gasTotal = 0;
-        $('#gas_nozzle_formset input[id^="id_gas_nozzle-"]').each(function(index) {
-            var totalizerStart = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_start').val()) || 0;
-            var totalizerEnd = parseFloat($('#id_gas_nozzle-' + index + '-totalizer_end').val()) || 0;
-            gasTotal += (totalizerEnd - totalizerStart);
-        });
-
-        $('#gasoline_total').text('مجموع بنزین: ' + gasolineTotal);
-        $('#gas_total').text('مجموع گاز: ' + gasTotal);
+    function showGasoilFields() {
+        gasFields.classList.remove("hidden");
+        gasolineFields.classList.add("hidden");
     }
 
-    // Recalculate totals when input values change
-    $(document).on('input', 'input[id^="id_gasoline_nozzle-"], input[id^="id_gas_nozzle-"]', calculateTotals);
-});
+    function showBothFields() {
+        gasFields.classList.remove("hidden");
+        gasolineFields.classList.remove("hidden");
+    }
 
+    next.addEventListener('click', nexts);
+    gasolineButton.addEventListener('click', showGasFields);
+    gasoilButton.addEventListener('click', showGasoilFields);
+    bothButton.addEventListener('click', showBothFields);
 </script>
+
 {% endblock %}

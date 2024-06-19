@@ -2,7 +2,8 @@ from django import forms
 from django.forms import inlineformset_factory
 from .models import FuelStation, GasolineNozzle, GasNozzle, GasolineTank, GasTank
 
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, Submit
 
 
 class FuelStationForm(forms.ModelForm):
@@ -21,7 +22,7 @@ class FuelStationForm(forms.ModelForm):
             'gasoline_nozzles': forms.NumberInput(attrs={'class': 'styled-input GazoiilShow allShow'}),
             'gas_tanks': forms.NumberInput(attrs={'class': 'styled-input GazShow allShow'}),
             'gas_nozzles': forms.NumberInput(attrs={'class': 'styled-input GazShow allShow'}),
-            'control_period': forms.TextInput(attrs={'class': 'styled-input  GazoiilShow GazShow basehide allShow'}),
+            'control_period': forms.Select(attrs={'class': 'styled-input  GazoiilShow GazShow basehide allShow'}),
             'product_type': forms.Select(attrs={'class': 'styled-input basehide allShow GazShow GazoiilShow'}),
             'gasoline_initial_stock': forms.NumberInput(attrs={'class': 'styled-input  GazoiilShow allShow'}),
             'gasoline_received': forms.NumberInput(attrs={'class': 'styled-input  GazoiilShow allShow'}),
@@ -61,38 +62,44 @@ class FuelStationForm(forms.ModelForm):
         
         
 class GasolineNozzleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GasolineNozzleForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Field('nozzle_number', css_class='form-control'),
+            Field('totalizer_start', css_class='form-control'),
+            Field('totalizer_end', css_class='form-control'),
+        )
+
     class Meta:
         model = GasolineNozzle
         fields = ['nozzle_number', 'totalizer_start', 'totalizer_end']
-        widgets = {
-            'nozzle_number': forms.NumberInput(attrs={'class': 'styled-input GazoiilShow allShow'}),
-            'totalizer_start': forms.NumberInput(attrs={'class': 'styled-input GazoiilShow allShow'}),
-            'totalizer_end': forms.NumberInput(attrs={'class': 'styled-input GazoiilShow allShow'}),
-        }
-  
         labels = {
             'nozzle_number': 'شماره نازل',
             'totalizer_start': 'شروع توتالایزر',
             'totalizer_end': 'پایان توتالایزر',
         }
-        
 
 class GasNozzleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GasNozzleForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Field('nozzle_number', css_class='form-control'),
+            Field('totalizer_start', css_class='form-control'),
+            Field('totalizer_end', css_class='form-control'),
+        )
+
     class Meta:
         model = GasNozzle
         fields = ['nozzle_number', 'totalizer_start', 'totalizer_end']
-        widgets = {
-            'nozzle_number': forms.NumberInput(attrs={'class': 'styled-input GazShow allShow basehide'}),
-            'totalizer_start': forms.NumberInput(attrs={'class': 'styled-input GazShow allShow basehide'}),
-            'totalizer_end': forms.NumberInput(attrs={'class': 'styled-input GazShow allShow basehide'}),
-        }
-
         labels = {
             'nozzle_number': 'شماره نازل',
             'totalizer_start': 'شروع توتالایزر',
             'totalizer_end': 'پایان توتالایزر',
         }
-        
       
         
  
